@@ -15,6 +15,8 @@
 //
 #include <iostream>
 #include "Blockchain.h"
+#include "User.h"
+#include "Hash.h"
 
 #include <thread>
 
@@ -22,53 +24,17 @@
 
 int main() {
 	Blockchain list;
+	User user1{};
+	User user2{};
+	std::cout << user1.getPublic() <<
+		" " << user1.getPrivate() << " " << user1.walletId << std::endl;
+
+	std::cout << user2.getPublic() <<
+		" " << user2.getPrivate() << " " << user2.walletId << std::endl;
 
 	list.add(111);
 	list.add(222);
 	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-	list.add(111);
-	list.add(222);
-	list.add(313);
-	list.add(111);
-	list.add(222);
-
 
 	list.print();
 
