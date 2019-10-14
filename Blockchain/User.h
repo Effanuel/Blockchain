@@ -15,12 +15,6 @@ using std::cin;
 using std::endl;
 
 
-struct Transaction {
-	string senderWallet;
-	string receiverWallter;
-	double amount;
-	double fee;
-};
 
 
 
@@ -56,13 +50,13 @@ private:
 User::User(double balance) :
 	_balance{ balance },
 	walletId{ _init_walletId(25) },
-	_publicKey{ hash64(walletId) },
-	_privateKey{ hash64(_publicKey) } {}
+	_publicKey{ hash128(walletId) },
+	_privateKey{ hash128(_publicKey) } {}
 User::User() :
-	_balance{ _init_balance(500) },
+	_balance{ _init_balance(1e6) },
 	walletId{ _init_walletId(25) },
-	_publicKey{ hash64(walletId) },
-	_privateKey{ hash64(_publicKey) } {}
+	_publicKey{ hash128(walletId) },
+	_privateKey{ hash128(_publicKey) } {}
 
 
 
@@ -84,7 +78,7 @@ string User::_init_walletId(size_t length) {
 		return charset[distr(gen) % max_index];
 		});
 
-	return hash64(str);
+	return hash128(str);
 
 }
 
@@ -93,9 +87,43 @@ double User::_init_balance(size_t limit) {
 	std::random_device device;
 	static std::mt19937 gen(device()); // CHANGE LATER
 	//gen.seed(std::random_device()());
-	static std::uniform_int_distribution<int> distr(1, limit);
+	static std::uniform_int_distribution<int> distr(1000, limit);
 	return distr(gen);
 }
+
+
+
+
+///Generates a vector of unconfirmed transactions with class 'Transaction'
+vector<User> generateUsers(int number) {
+	vector<User> users;
+	for (int i = 0; i < number; ++i) {
+		users.push_back(User{});
+	}
+	return users;
+}
+
+///Generates a vector of unconfirmed transactions with class 'Transaction'
+///and sets it to 'Blockchain' unconfirmed transactions
+void generateTransactions(Blockchain& blockchain, vector<User>& users, int numberOfTransactions) {
+	std::random_device device;
+	static std::mt19937 gen(device()); // CHANGE LATER
+	//gen.seed(std::random_device()());
+	static std::uniform_int_distribution<int> distr(0, 500); //500 users
+
+	vector<Transaction> unconfirmedTransactions;
+
+	for(int i = 0; i < numberOfTransactions; ++i){
+		unconfirmedTransactions.push_back(
+			Transaction{
+				users[distr(gen)].walletId,
+				users[distr(gen)].walletId,
+				5,
+				0.00 });
+	}
+		blockchain.addTransaction(unconfirmedTransactions);
+}
+
 
 
 

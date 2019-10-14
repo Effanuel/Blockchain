@@ -31,5 +31,5 @@ public:
 	uint64_t _nonce;
 	unsigned int _difficulty;
 	int body;
-
+	vector<string> confirmedTransactions;
 };

@@ -2,12 +2,37 @@
 #include <iostream>
 #include <ctime>
 #include <chrono>
+#include <map>
 
 #include "Block.h"
+#include "Hash.h"
+
+struct Transaction {
+	string senderWallet;
+	string receiverWallet;
+	double amount;
+	double fee;
+	string txId;
+
+	Transaction(string _senderWallet,
+		string _receiverWallet,
+		double _amount,
+		double _fee) :	
+		senderWallet{ _senderWallet },
+		receiverWallet {_receiverWallet},
+		amount{_amount},
+		fee{_fee},
+		txId{ hash128(_senderWallet + _receiverWallet) } {}
+};
+
+
 
 class Blockchain {
 
 public:
+	std::vector<Transaction> unconfirmedTransactions;
+
+
 	Blockchain() : _genesisBlock{ nullptr }, length{ 0 } {}
 
 
@@ -24,14 +49,21 @@ public:
 	void add(int body) {
 		Block* node = new Block();
 
-
-
-
 		node->body = body;
 		node->_prevHash = _genesisBlock;
 		node->_timestamp = __getTimestamp();
 		_genesisBlock = node;
 	}
+
+	void addTransaction(Transaction transaction) {
+		unconfirmedTransactions.push_back(transaction);
+	}
+	void addTransaction(vector<Transaction>& transactions) {
+		unconfirmedTransactions = std::move(transactions);
+	}
+
+
+
 
 	void print() {
 		Block* node = this->_genesisBlock;
