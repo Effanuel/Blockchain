@@ -2,6 +2,7 @@
 #include "Blockchain.h"
 #include "User.h"
 #include "Hash.h"
+#include "Miner.h"
 
 #include <thread>
 
@@ -22,10 +23,21 @@ int main() {
 	vector<User> users = generateUsers(1000);
 	generateTransactions(list, users, 100);
 
-	for (const auto& elem : list.unconfirmedTransactions)
-	{
-		std::cout << elem.amount <<" "<< elem.txId << std::endl;
-	}
+	//for (const auto& elem : list.unconfirmedTransactions)
+	//{
+	//	std::cout << elem.amount <<" "<< elem.txId << std::endl;
+	//}
+	
+
+	Miner miner{};
+	miner.getUnconfirmedTransactions(list);
+
+	miner.startMining();
+
+
+	
+
+
 
 	
 

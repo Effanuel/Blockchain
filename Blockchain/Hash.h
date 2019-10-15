@@ -139,7 +139,7 @@ std::string Hash::hash128() {
 
 
 
-std::string hash128(const std::string input)  {
+std::string hash128(std::string input)  {
 	Hash hash{ input };
 	return hash.hash128();
 }
