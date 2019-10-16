@@ -26,10 +26,9 @@ public:
 	//	_nonce(nonce),
 	//	_difficulty(difficulty) {}
 	Block* _prevHash;
-	string _timestamp;
+	string _timestamp; //+
 	string _merkel_root_hash;
-	uint64_t _nonce;
+	uint64_t _nonce; //+
 	unsigned int _difficulty;
-	int body;
 	vector<string> confirmedTransactions;
 };

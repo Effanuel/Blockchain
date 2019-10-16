@@ -32,25 +32,15 @@ int main() {
 	Miner miner{};
 	miner.getUnconfirmedTransactions(list);
 
-	miner.startMining();
+	MinedTransactions mined_Transactions;
+	mined_Transactions = miner.startMining();
+
+	uint64_t mined_nonce = mined_Transactions.nonce;
+	string mined_merkel_root_hash = mined_Transactions.merkel_root_hash;
 
 
-	
+	list.add(miner.unT_txId, mined_merkel_root_hash, mined_nonce); //to remove transactions
 
-
-
-	
-
-
-
-	//Hash hash{"a"};
-
-	//std::cout << hash.hash128() << std::endl;
-
-
-	list.add(111);
-	list.add(222);
-	list.add(313);
 
 	list.print();
 

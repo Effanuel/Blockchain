@@ -33,7 +33,7 @@ public:
 	std::vector<Transaction> unconfirmedTransactions;
 
 
-	Blockchain() : _genesisBlock{ nullptr }, length{ 0 } {}
+	Blockchain() : _genesisBlock{ nullptr }, length{ 0 } { /*unconfirmedTransactions.reserve(100);*/ }
 
 
 	~Blockchain() {
@@ -46,13 +46,20 @@ public:
 		}
 	}
 
-	void add(int body) {
+	void add(vector<string>& body, string& merkel_root_hash, uint64_t& nonce) {
+		std::cout << "Adding block with merkel: " << merkel_root_hash << std::endl;
+		std::cout << "Adding block with nonce: " << nonce << std::endl;
 		Block* node = new Block();
 
-		node->body = body;
+		node->confirmedTransactions = body;
 		node->_prevHash = _genesisBlock;
+		//Header
 		node->_timestamp = __getTimestamp();
+		node->_merkel_root_hash = merkel_root_hash;
+		node->_nonce = nonce;
+		//
 		_genesisBlock = node;
+		std::cout << "Added block. Done." << std::endl;
 	}
 
 	void addTransaction(Transaction transaction) {
@@ -69,7 +76,10 @@ public:
 		Block* node = this->_genesisBlock;
 		int i = 1;
 		while (_genesisBlock) {
-			std::cout << i << " : " << _genesisBlock->body << " : " << _genesisBlock->_timestamp << std::endl;
+			std::cout <<"Block: " << i <<
+				"\n:Merkel:\t" << _genesisBlock->_merkel_root_hash <<
+				"\n:Timestamp:\t" << _genesisBlock->_timestamp <<
+				"\n:Nonce:\t" << _genesisBlock->_nonce << std::endl;
 			_genesisBlock = _genesisBlock->_prevHash;
 			++i;
 		}

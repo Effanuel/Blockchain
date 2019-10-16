@@ -4,6 +4,13 @@
 #include <numeric>
 
 
+struct MinedTransactions {
+	vector<string> transactions;
+	string merkel_root_hash;
+	uint64_t nonce;
+};
+
+
 class Miner : User {
 
 public:
@@ -27,22 +34,26 @@ public:
 	}
 
 
-	void startMining() {
+
+	
+
+	MinedTransactions startMining() {
 
 
-		std::string toMineString;
-		for (const auto& piece : unT_txId) toMineString += piece;
+		std::string string_of_transactions;
+		for (const auto& tx : unT_txId) string_of_transactions += tx;
+		std::string merkel_root_hash = hash128(string_of_transactions);
 
-		int nonce = 0;
+		uint64_t nonce = 0;
 		string hashed;
 		std::cout << "Started mining..." << std::endl;
 		do {
 			nonce+=8;
-			hashed = hash128(toMineString + std::to_string(nonce));
+			hashed = hash128(merkel_root_hash + std::to_string(nonce));
 
-		} while (hashed.find("000") != 0);
+		} while (hashed.find("00000") != 0);
 		std::cout << "Mined hash: " << hashed << std::endl;
 		std::cout << "Nonce: " << nonce << std::endl;
-
+		return MinedTransactions{ unT_txId, merkel_root_hash, nonce };
 	}
 };
