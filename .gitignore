@@ -340,6 +340,7 @@ Release/
 *.vcxproj.users
 */Debug/
 */Release/
+*.sln
 
 
 

@@ -96,7 +96,7 @@ void Blockchain::addNode(vector<Transaction>& body, string& merkel_root_hash, ui
 
 
 
-	std::map<User, string> wallets;
+	
 	/// insert for ea in vector
 	/// for ea transaction get amount and +to receiver-fee -sender
 
