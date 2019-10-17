@@ -12,24 +12,13 @@ using std::endl;
 
 
 
-class Block {
-
-
-public:
-	//Block(Block* prevHash,
-	//	string timestamp,
-	//	string merkel_root_hash,
-	//	uint64_t nonce,
-	//	unsigned int difficulty) :
-	//	_prevHash(prevHash),
-	//	_timestamp(timestamp),
-	//	_merkel_root_hash(merkel_root_hash),
-	//	_nonce(nonce),
-	//	_difficulty(difficulty) {}
+struct Block {
 	Block* _prevHash;
 	string _timestamp; //+
 	string _merkel_root_hash;
 	uint64_t _nonce; //+
 	unsigned int _difficulty;
+	uint64_t _version;
+	string _blockHash;
 	vector<Transaction> confirmedTransactions;
 };

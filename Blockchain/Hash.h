@@ -1,20 +1,10 @@
 #pragma once
 #include <numeric>
 #include <iomanip>
-
-#include <fstream>
 #include <sstream>
-#include <iostream>
-
 #include <string>
 #include <vector>
-#include <map>
-
-#include <chrono>
 #include <algorithm>
-#include <random>
-
-using std::string;
 
 
 class Hash {
@@ -108,7 +98,7 @@ std::string Hash::hash128() {
 	ull A;
 	ull B;
 	std::stringstream stream;
-	string answer;
+	std::string answer;
 	unsigned int j = 0;
 	for (const auto& line : input_) {
 		A = CONSTANTS[j % 64];

@@ -3,8 +3,8 @@
 #include "User.h"
 #include "Hash.h"
 #include "Miner.h"
+#include "Functions.h"
 #include <exception>
-
 #include <thread>
 
 void startMining(Blockchain&);
@@ -16,8 +16,6 @@ int main() {
 	startMining(blockchain);	
 	blockchain.print();
 }
-
-
 
 void startMining(Blockchain& blockchain) {
 	/// Init miner class
@@ -45,12 +43,16 @@ void startMining(Blockchain& blockchain) {
 
 Blockchain initBlockchain() {
 	unsigned int userCount = 1000;
-	int transactionCount = 10000;
+	unsigned int transactionCount = 10000;
 	std::cout << "Initializing blockchain with " <<
 		userCount << " users and " <<
 		transactionCount << " transactions...\n" << std::string(50, '=') << std::endl;
 	Blockchain blockchain;
+	/// Store generated Users
 	vector<User> users = generateUsers(userCount);
-	generateTransactions(blockchain, users, transactionCount);
+	blockchain.setUsers(users); 
+	/// Store generated transactions
+	generateTransactions(blockchain, transactionCount);
+
 	return blockchain;
 }

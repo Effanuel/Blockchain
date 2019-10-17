@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <iostream>
 #include <ctime>
 #include <algorithm>
 #include <random>
@@ -14,9 +13,6 @@ using std::vector;
 using std::cout;
 using std::cin;
 using std::endl;
-
-
-
 
 
 class User {
@@ -34,6 +30,13 @@ public:
 	}
 	string getPrivate() const {
 		return _privateKey;
+	}
+
+	double getBalance() const {
+		return _balance;
+	}
+	void setBalance(double amount) {
+		_balance += amount;
 	}
 
 
@@ -91,47 +94,3 @@ double User::_init_balance(int limit) {
 	static std::uniform_int_distribution<int> distr(1000, limit);
 	return distr(gen);
 }
-
-
-
-
-///Generates a vector of unconfirmed transactions with class 'Transaction'
-vector<User> generateUsers(int number) {
-	vector<User> users;
-	for (int i = 0; i < number; ++i) {
-		users.push_back(User{});
-	}
-	return users;
-}
-
-///Generates a vector of unconfirmed transactions with class 'Transaction'
-///and sets it to 'Blockchain' unconfirmed transactions
-void generateTransactions(Blockchain& blockchain, vector<User>& users, int numberOfTransactions) {
-	std::random_device device;
-	static std::mt19937 gen(device()); // CHANGE LATER
-	//gen.seed(std::random_device()());
-	static std::uniform_int_distribution<int> distr(0, users.size() - 1); //error???
-	static std::uniform_real_distribution<double> distr_amount(5.0, 50.0);
-	static std::uniform_real_distribution<double> distr_fee(0.0, 2.0);
-
-	vector<Transaction> unconfirmedTransactions;
-	unconfirmedTransactions.reserve(numberOfTransactions);
-
-	for(int i = 0; i < numberOfTransactions; ++i){
-		unconfirmedTransactions.push_back(
-			Transaction{
-				users[distr(gen)].walletId,
-				users[distr(gen)].walletId,
-				distr_amount(gen),
-				distr_fee(gen) });
-	}
-		blockchain.addTransaction(unconfirmedTransactions);
-		unconfirmedTransactions.clear();
-}
-
-
-
-
-
-
-

@@ -7,6 +7,7 @@
 #include "Block.h"
 #include "Hash.h"
 #include "Transaction.h"
+#include "User.h"
 
 
 
@@ -15,11 +16,22 @@ class Blockchain {
 
 public:
 	std::vector<Transaction> unT;
+	std::vector<User> users;
+	uint64_t version; // 0x0001
+	unsigned int difficultyTarget; // 2
 	unsigned int length;
 
 
-	Blockchain() : _genesisBlock{ nullptr }, length{ 0 } { /*unT.reserve(100);*/ }
+	Blockchain() : _genesisBlock{ nullptr }, version{0x0001}, difficultyTarget{ 2 }, length{ 0 } { /*unT.reserve(100);*/ }
 	~Blockchain();
+
+	void setUsers(vector<User>& user) {
+		this->users = std::move(user);
+	}
+	vector<User> getUsers() const {
+		return users;
+	}
+
 
 	bool contains(const Transaction& src);
 
@@ -37,16 +49,6 @@ private:
 
 	void __removeConfirmedTransactions(vector<Transaction>);
 };
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -73,8 +75,9 @@ bool Blockchain::contains(const Transaction& src) {
 void Blockchain::addNode(vector<Transaction>& body, string& merkel_root_hash, uint64_t& nonce) {
 	std::cout << "Adding block with merkel: " << merkel_root_hash << std::endl;
 	std::cout << "Adding block with nonce: " << nonce << std::endl;
-	Block* node = new Block();
 	std::cout << "Unconfirmed transactions left: " << unT.size() << std::endl;
+	Block* node = new Block();
+	
 	node->_prevHash = _genesisBlock;
 
 
@@ -82,6 +85,9 @@ void Blockchain::addNode(vector<Transaction>& body, string& merkel_root_hash, ui
 	node->_timestamp = __getTimestamp();
 	node->_merkel_root_hash = merkel_root_hash;
 	node->_nonce = nonce;
+	node->_difficulty = this->difficultyTarget;
+	node->_version = this->version;
+	node->_blockHash = hash128(merkel_root_hash + std::to_string(nonce));
 	/// Body
 	node->confirmedTransactions = body;
 
@@ -94,13 +100,23 @@ void Blockchain::addNode(vector<Transaction>& body, string& merkel_root_hash, ui
 	__removeConfirmedTransactions(body);
 	std::cout << "Unconfirmed transactions left: " << unT.size() << std::endl;
 
-
-
 	
-	/// insert for ea in vector
-	/// for ea transaction get amount and +to receiver-fee -sender
-
-
+	/// Distribute sent amounts
+	std::map<string, User> users_wallets;
+	for (const auto& user : users) {
+		users_wallets.insert(std::pair<string, User>(user.walletId, user));
+	}
+	
+	for (const auto& transaction : body) {
+		users_wallets[transaction.senderWallet].setBalance(-transaction.amount);	
+		users_wallets[transaction.receiverWallet].setBalance(transaction.amount);	
+	}
+	std::vector<User> updatedUserBalances;
+	for (const auto& elem : users_wallets) {
+		updatedUserBalances.push_back(elem.second);
+	}
+	this->setUsers(updatedUserBalances);
+	///
 }
 
 void Blockchain::addTransaction(Transaction transaction) {
@@ -119,7 +135,7 @@ void Blockchain::print() {
 		std::cout << "Block: " << length - i <<
 			"\n:Merkel:\t" << _genesisBlock->_merkel_root_hash <<
 			"\n:Timestamp:\t" << _genesisBlock->_timestamp <<
-			":Nonce:\t\t" << _genesisBlock->_nonce << std::endl;
+			"\n:Nonce:\t\t" << _genesisBlock->_nonce << std::endl;
 		std::cout << std::string(50, '-') << std::endl;
 		_genesisBlock = _genesisBlock->_prevHash;
 		++i;
@@ -127,14 +143,17 @@ void Blockchain::print() {
 }
 
 
-
-
 /// PRIVATE MEMBER FUNCTIONS
 string Blockchain::__getTimestamp() {
 	auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	char arr[26];
-	ctime_s(arr, sizeof(arr), &timenow);
-	string str(arr);
+	//char arr[26];
+	//ctime_s(arr, sizeof(arr), &timenow);
+	//string str(arr);
+	auto tm = *std::localtime(&timenow);
+
+	std::ostringstream oss;
+	oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+	auto str = oss.str();
 	return str;
 }
 
