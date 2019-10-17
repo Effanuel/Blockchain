@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include "Transaction.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -30,5 +31,5 @@ public:
 	string _merkel_root_hash;
 	uint64_t _nonce; //+
 	unsigned int _difficulty;
-	vector<string> confirmedTransactions;
+	vector<Transaction> confirmedTransactions;
 };

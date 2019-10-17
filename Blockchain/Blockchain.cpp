@@ -3,45 +3,54 @@
 #include "User.h"
 #include "Hash.h"
 #include "Miner.h"
+#include <exception>
 
 #include <thread>
 
+void startMining(Blockchain&);
+Blockchain initBlockchain();
 
 
 int main() {
-	Blockchain list;
-	User user1{};
-	User user2{};
-	//std::cout << user1.getPublic() <<
-	//	" " << user1.getPrivate() << " " << user1.walletId << std::endl;
+	Blockchain blockchain = initBlockchain();
+	startMining(blockchain);	
+	blockchain.print();
+}
 
-	//std::cout << user2.getPublic() <<
-	//	" " << user2.getPrivate() << " " << user2.walletId << std::endl;
 
-	////add transaction between user1 and user2
-	//list.addTransaction(Transaction{ user1.walletId, user2.walletId, 5, 0.00 });
-	vector<User> users = generateUsers(1000);
-	generateTransactions(list, users, 100);
 
-	//for (const auto& elem : list.unconfirmedTransactions)
-	//{
-	//	std::cout << elem.amount <<" "<< elem.txId << std::endl;
-	//}
-	
-
+void startMining(Blockchain& blockchain) {
+	/// Init miner class
 	Miner miner{};
-	miner.getUnconfirmedTransactions(list);
+	while (true) {
+		try {
+			MinedParameters M_body = miner.startMining(blockchain); //mined body
 
-	MinedTransactions mined_Transactions;
-	mined_Transactions = miner.startMining();
+			///RETURNED HEADER AND BODY PARAMETERS
+			uint64_t M_nonce = M_body.nonce;
+			string M_merkel_root_hash = M_body.merkel_root_hash;
+			vector<Transaction> M_transactions = M_body.transactions;
 
-	uint64_t mined_nonce = mined_Transactions.nonce;
-	string mined_merkel_root_hash = mined_Transactions.merkel_root_hash;
+			/// Add mined block to blockchain
+			blockchain.addNode(M_transactions, M_merkel_root_hash, M_nonce);
+		}
+		catch (std::exception& e) {
+			std::cout << std::string(50, '-') << std::endl;
+			std::cout << e.what() << std::endl;
+			std::cout << std::string(50, '-') << std::endl;
+			break;
+		}	
+	}	
+}
 
-
-	list.add(miner.unT_txId, mined_merkel_root_hash, mined_nonce); //to remove transactions
-
-
-	list.print();
-
+Blockchain initBlockchain() {
+	unsigned int userCount = 1000;
+	int transactionCount = 10000;
+	std::cout << "Initializing blockchain with " <<
+		userCount << " users and " <<
+		transactionCount << " transactions...\n" << std::string(50, '=') << std::endl;
+	Blockchain blockchain;
+	vector<User> users = generateUsers(userCount);
+	generateTransactions(blockchain, users, transactionCount);
+	return blockchain;
 }

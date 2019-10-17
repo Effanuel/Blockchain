@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <random>
 
+using std::string;
+
 
 class Hash {
 	typedef uint64_t ull;

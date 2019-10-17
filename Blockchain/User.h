@@ -5,6 +5,7 @@
 #include <ctime>
 #include <algorithm>
 #include <random>
+#include <cmath>
 
 #include "Hash.h"
 
@@ -42,19 +43,19 @@ private:
 	string _publicKey;
 	string _privateKey;
 
-	string _init_walletId(size_t length);
-	double _init_balance(size_t limit);
+	string _init_walletId(size_t);
+	double _init_balance(int);
 };
 
 
 User::User(double balance) :
 	_balance{ balance },
-	walletId{ _init_walletId(25) },
+	walletId{ _init_walletId(64) },
 	_publicKey{ hash128(walletId) },
 	_privateKey{ hash128(_publicKey) } {}
 User::User() :
 	_balance{ _init_balance(1e6) },
-	walletId{ _init_walletId(25) },
+	walletId{ _init_walletId(64) },
 	_publicKey{ hash128(walletId) },
 	_privateKey{ hash128(_publicKey) } {}
 
@@ -82,7 +83,7 @@ string User::_init_walletId(size_t length) {
 
 }
 
-double User::_init_balance(size_t limit) {
+double User::_init_balance(int limit) {
 
 	std::random_device device;
 	static std::mt19937 gen(device()); // CHANGE LATER
@@ -109,19 +110,23 @@ void generateTransactions(Blockchain& blockchain, vector<User>& users, int numbe
 	std::random_device device;
 	static std::mt19937 gen(device()); // CHANGE LATER
 	//gen.seed(std::random_device()());
-	static std::uniform_int_distribution<int> distr(0, 500); //500 users
+	static std::uniform_int_distribution<int> distr(0, users.size() - 1); //error???
+	static std::uniform_real_distribution<double> distr_amount(5.0, 50.0);
+	static std::uniform_real_distribution<double> distr_fee(0.0, 2.0);
 
 	vector<Transaction> unconfirmedTransactions;
+	unconfirmedTransactions.reserve(numberOfTransactions);
 
 	for(int i = 0; i < numberOfTransactions; ++i){
 		unconfirmedTransactions.push_back(
 			Transaction{
 				users[distr(gen)].walletId,
 				users[distr(gen)].walletId,
-				5,
-				0.00 });
+				distr_amount(gen),
+				distr_fee(gen) });
 	}
 		blockchain.addTransaction(unconfirmedTransactions);
+		unconfirmedTransactions.clear();
 }
 
 
