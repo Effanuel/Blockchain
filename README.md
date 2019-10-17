@@ -33,7 +33,7 @@ Sukurkite "centralizuotą" blokų grandinę (blockchain'ą) ir susimuliuokite bl
 1. GNU C++ Compiler
 
 ## Installation
-1. [Atsisiūskite naujausią versiją.]()
+1. [Atsisiūskite naujausią versiją.](https://github.com/Effanuel/Blockchain/archive/v0.1.zip)
 2. Extract failus.
 3. Per command-line:
 ```
