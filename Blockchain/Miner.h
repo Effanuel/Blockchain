@@ -11,11 +11,17 @@ struct MinedParameters {
 };
 
 
-class Miner : User {
+class Miner : public User {
 
 public:
 	std::vector<Transaction> transactions_to_mine;
 	Miner() : User{} {}
+
+
+
+
+
+
 
 	/// Store transactions to mine
 	void getUnconfirmedTransactions(Blockchain& blockchain) {

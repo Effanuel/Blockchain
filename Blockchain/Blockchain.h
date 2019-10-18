@@ -3,6 +3,7 @@
 #include <ctime>
 #include <chrono>
 #include <map>
+#include <numeric>
 
 #include "Block.h"
 #include "Hash.h"
@@ -20,9 +21,15 @@ public:
 	uint64_t version; // 0x0001
 	unsigned int difficultyTarget; // 2
 	unsigned int length;
+	unsigned int reward;
 
 
-	Blockchain() : _genesisBlock{ nullptr }, version{0x0001}, difficultyTarget{ 2 }, length{ 0 } { /*unT.reserve(100);*/ }
+	Blockchain() : _genesisBlock{ nullptr },
+		version{0x0001},
+		difficultyTarget{ 2 },
+		length{ 0 },
+		reward{100}
+	{ /*unT.reserve(100);*/ }
 	~Blockchain();
 
 	void setUsers(vector<User>& user) {
