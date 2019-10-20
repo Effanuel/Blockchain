@@ -35,15 +35,18 @@ vector<Transaction> validateTransactions(vector<User>& blockchain_Users, vector<
 	MAP_wallet_user::const_iterator pos;
 	/// Iterate over non-validated transactions
 	for (const auto& trans : unT) {
+		
 		/// Get position of map of transactions sender wallet
 		pos = wallet_user.find(trans.senderWallet);
 
 		/// Check if transactinos exists 
 		/// AND
 		/// Using sender wallet, get User and check whether balance >= transaction sender amount
-		if (pos == wallet_user.end() && wallet_user[pos->first].getBalance() >= trans.amount)
+		//std::cout << wallet_user[pos->first].getBalance() << std::endl;
+		//std::cout << "Balance" << trans.amount << std::endl;
+		if (pos != wallet_user.end() && wallet_user[pos->first].getBalance() >= trans.amount)
 			validated_Transactions.push_back(trans);
-
+			
 	}
 	/// Return validated transactions
 	return validated_Transactions;
@@ -83,11 +86,14 @@ void generateTransactions(Blockchain& blockchain, unsigned int numberOfTransacti
 
 	/// Validated transactions based on balance/sent amount check
 	vector<Transaction> vT = validateTransactions(blockchain_Users, unT);
-	/// Add validated(with hashes and balances) transactions to unconfirmed transaction pool
-	blockchain.addTransaction(vT);
+
 
 	std::cout << "Deleted " << numberOfTransactions - vT.size() <<
 		" invalid transactions." << std::endl;
+
+
+	/// Add validated(with hashes and balances) transactions to unconfirmed transaction pool
+	blockchain.addTransaction(vT);
 	unT.clear();
 }
 
