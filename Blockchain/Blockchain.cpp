@@ -12,6 +12,9 @@ Blockchain initBlockchain();
 
 
 int main() {
+
+
+
 	Blockchain blockchain = initBlockchain();
 	startMining(blockchain);	
 	blockchain.print(); /// Print blockchain blocks
@@ -41,6 +44,8 @@ void startMining(Blockchain& blockchain) {
 				return sum + transaction.fee;
 				});
 			std::cout << ">>>>>Block reward : " << blockchain.reward + sumOfFees << " : to miner "<< miner.walletId << std::endl;
+			/// Reward for mined block to a miner
+			miner.setBalance(blockchain.reward + sumOfFees); 
 		}
 		catch (std::exception& e) {
 			std::cout << std::string(50, '-') << std::endl;

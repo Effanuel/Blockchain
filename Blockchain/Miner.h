@@ -19,10 +19,6 @@ public:
 
 
 
-
-
-
-
 	/// Store transactions to mine
 	void getUnconfirmedTransactions(Blockchain& blockchain) {
 		if (blockchain.unT.size() < 100) {
