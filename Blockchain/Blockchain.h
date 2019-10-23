@@ -26,7 +26,7 @@ public:
 
 	Blockchain() : _genesisBlock{ nullptr },
 		version{0x0001},
-		difficultyTarget{ 2 },
+		difficultyTarget{ 3 },
 		length{ 0 },
 		reward{100}
 	{ /*unT.reserve(100);*/ }

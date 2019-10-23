@@ -70,7 +70,7 @@ void generateTransactions(Blockchain& blockchain, unsigned int numberOfTransacti
 	vector<Transaction> unT;
 	unT.reserve(numberOfTransactions);
 
-	double senderID;
+	unsigned int senderID;
 	for (unsigned int i = 0; i < numberOfTransactions; ++i) {
 
 		senderID = distr(gen);
