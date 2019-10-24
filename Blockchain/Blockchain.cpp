@@ -80,7 +80,7 @@ void startMining_concurrent(Blockchain& blockchain) {
 					tries = 500;
 					break;
 				}
-				catch (const std::exception& noMoreTransactionsLeft) {
+				catch (const char* noMoreTransactionsLeft) { ///std::exception doesnt work properly on command line
 					/// No more transactions to mine
 					throw noMoreTransactionsLeft;
 				}
@@ -118,7 +118,7 @@ void startMining_concurrent(Blockchain& blockchain) {
 
 Blockchain initBlockchain() {
 	unsigned int userCount = 1000;
-	unsigned int transactionCount = 10000;
+	unsigned int transactionCount = 500;
 	std::cout << "Initializing blockchain with " <<
 		userCount << " users and " <<
 		transactionCount << " transactions...\n" << std::string(50, '=') << std::endl;
