@@ -49,6 +49,9 @@ int main() {
 	blockchain.print(); /// Print blockchain blocks
 }
 
+
+
+
 void startMining_concurrent(Blockchain& blockchain) {
 	/// Init miner class
 	Miner miner1{};
@@ -118,7 +121,7 @@ void startMining_concurrent(Blockchain& blockchain) {
 
 Blockchain initBlockchain() {
 	unsigned int userCount = 1000;
-	unsigned int transactionCount = 500;
+	unsigned int transactionCount = 50;
 	std::cout << "Initializing blockchain with " <<
 		userCount << " users and " <<
 		transactionCount << " transactions...\n" << std::string(50, '=') << std::endl;

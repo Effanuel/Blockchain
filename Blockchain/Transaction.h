@@ -66,10 +66,8 @@ string Transaction::__getTimestamp() {
 	//char arr[26];
 	//ctime_s(arr, sizeof(arr), &timenow);
 	//string str(arr);
-	auto tm = *std::localtime(&timenow);
 
 	std::ostringstream oss;
-	oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
-	auto str = oss.str();
-	return str;
+	oss << timenow;
+	return oss.str();
 }

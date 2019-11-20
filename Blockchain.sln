@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blockchain", "Blockchain\Blockchain.vcxproj", "{53352849-D9C6-4222-9EBE-F4D890C486A5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blockchain", "Blockchain\Blockchain.vcxproj", "{935FC44D-521D-48A7-B6ED-7FF6421EA999}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Debug|x64.ActiveCfg = Debug|x64
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Debug|x64.Build.0 = Debug|x64
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Debug|x86.ActiveCfg = Debug|Win32
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Debug|x86.Build.0 = Debug|Win32
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Release|x64.ActiveCfg = Release|x64
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Release|x64.Build.0 = Release|x64
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Release|x86.ActiveCfg = Release|Win32
-		{53352849-D9C6-4222-9EBE-F4D890C486A5}.Release|x86.Build.0 = Release|Win32
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Debug|x64.ActiveCfg = Debug|x64
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Debug|x64.Build.0 = Debug|x64
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Debug|x86.ActiveCfg = Debug|Win32
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Debug|x86.Build.0 = Debug|Win32
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Release|x64.ActiveCfg = Release|x64
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Release|x64.Build.0 = Release|x64
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Release|x86.ActiveCfg = Release|Win32
+		{935FC44D-521D-48A7-B6ED-7FF6421EA999}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F4AD9E58-75AE-47BB-BE52-D090F1D53714}
+		SolutionGuid = {4E739E6C-E875-47ED-932B-92DF17300CCB}
 	EndGlobalSection
 EndGlobal

@@ -52,7 +52,8 @@ private:
 
 public:
 	Hash(std::string input) : input_({ input }) {}
-	Hash(std::vector<std::string> input_arr) : input_(std::move(input_arr)) {}
+	Hash(std::vector<std::string> input_arr) : input_({ input_arr }) {}
+	//Hash(std::vector<std::string> input_arr) : input_(std::move(input_arr)) {}
 
 	std::vector<ull> getHash() const {
 		return hashedInput_;
@@ -130,11 +131,12 @@ std::string Hash::hash128() {
 
 
 
-
-std::string hash128(std::string input)  {
-	Hash hash{ input };
+template <class... Args>
+std::string hash128(Args&&... args)  {
+	Hash hash{ args... };
 	return hash.hash128();
 }
+
 
 
 

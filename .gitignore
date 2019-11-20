@@ -341,6 +341,7 @@ Release/
 */Debug/
 */Release/
 *.sln
+Blockchain.sln
 
 
 
