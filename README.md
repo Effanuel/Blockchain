@@ -29,18 +29,14 @@ Sukurkite "centralizuotą" blokų grandinę (blockchain'ą) ir susimuliuokite bl
 1. GNU C++ Compiler
 
 ## Installation
-1. [Atsisiūskite naujausią versiją.](https://github.com/Effanuel/Blockchain/archive/v0.2.zip)
+1. [Atsisiūskite naujausią versiją.](https://github.com/Effanuel/Blockchain/releases/tag/v0.3)
 2. Extract failus.
 3. Per command-line:
 ```
 cd Blockchain
-make run
+g++ -std=c++14 -O3 Blockchain.cpp -o project
 ```
-4. Executable yra **./Blockchain/bin/project.exe**
-```
-cd bin
-./project
-```
+4. Executable yra **./project.exe**
 ---
 
 
@@ -61,6 +57,13 @@ cd bin
   * Repeat, until the correct hash is found;
 * **Random transaction taking** from the pool;
 * Reward to the miners; *(default: 100 + fees)*
+
+---
+
+[v0.3](https://github.com/Effanuel/Blockchain/archive/v0.3.zip) Features:
+* Update merkle root tree for **transactions**;
+
+
 
 
 
