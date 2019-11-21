@@ -18,6 +18,7 @@ int main() {
 	Blockchain blockchain = initBlockchain();
 	startMining_concurrent(blockchain);	
 	blockchain.print(); /// Print blockchain blocks
+	std::cin.get();
 }
 
 

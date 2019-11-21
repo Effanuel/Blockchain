@@ -47,7 +47,7 @@ private:
 	}
 
 	ull _mixB(ull input, ull state) {
-		return ((input * state) + (state >> 7)) ^ (input >> 4) + 199873;
+		return (((input * state) + (state >> 7)) ^ (input >> 4)) + 199873;
 	}
 
 public:
