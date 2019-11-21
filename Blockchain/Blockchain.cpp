@@ -15,35 +15,6 @@ void startMining_concurrent(Blockchain& blockchain);
 
 int main() {
 
-	//std::vector<int> v{ 1, 2, 3, 4, 5, 6 };
-	//auto f1 = [](std::vector<int> & v,
-	//	unsigned int left, unsigned int right) {
-	//		unsigned long long acm = 0;
-	//		for (int i = left; i < right; ++i) {
-	//			acm += v[i];
-	//		}
-	//		return acm;
-	//};
-	//auto t1 = std::async(f1, std::ref(v), 0, v.size());
-	//auto t2 = std::async(f1, std::ref(v), 0, 1);
-
-	//{
-	//	unsigned long long acm11;
-	//	unsigned long long acm22;
-	//	if ((acm11 = t1.get()) || (acm22 = t2.get())) {
-
-	//		std::cout << "acm1: " << acm22 << endl;
-	//	}
-	//}
-
-
-	//unsigned long long acm1 = t1.get();
-	//unsigned long long acm2 = t2.get();
-
-	//std::cout << "acm1: " << acm1 << endl;
-	//std::cout << "acm2: " << acm2 << endl;
-	//std::cout << "acm1 + acm2: " << acm1 + acm2 << endl;
-
 	Blockchain blockchain = initBlockchain();
 	startMining_concurrent(blockchain);	
 	blockchain.print(); /// Print blockchain blocks
@@ -121,7 +92,7 @@ void startMining_concurrent(Blockchain& blockchain) {
 
 Blockchain initBlockchain() {
 	unsigned int userCount = 1000;
-	unsigned int transactionCount = 50;
+	unsigned int transactionCount = 3000;
 	std::cout << "Initializing blockchain with " <<
 		userCount << " users and " <<
 		transactionCount << " transactions...\n" << std::string(50, '=') << std::endl;

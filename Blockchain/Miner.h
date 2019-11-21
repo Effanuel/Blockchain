@@ -54,7 +54,6 @@ private:
 			}
 			merkle = new_merkle;
 		}
-		std::cout << merkle[0] << std::endl;
 		return merkle[0];
 	}
 };
